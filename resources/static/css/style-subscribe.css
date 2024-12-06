@@ -1,0 +1,305 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Poppins';
+    background-color: #1C1919;
+}
+
+.row {
+    margin: 0;
+}
+
+.container {
+    padding: 70px 0;
+}
+
+p, li {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+
+/* Navbar styles */ 
+header .navbar {
+    background-color: #1C1919;
+}
+
+
+#logo {
+    width: 7rem; /* Aproximadamente 100px */
+    margin-left: 4.5rem; /* Aproximadamente 40px */
+}
+
+#span-date {
+    font-size: 12px;
+    padding: 10px;
+}
+
+.navbar-brand {
+    padding-top: 10px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20vw;
+}
+
+.navbar-brand span{
+    color: #FFFFFF;
+}
+
+.button-navbar {
+    color: #DEAC30;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    width: auto;
+    height: 80px;
+    position: relative;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    padding-bottom: 0;
+}
+
+.button-navbar:hover {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+
+
+.box {
+    width: 50%;
+    float: left;
+    height: 80px;/*Altura da linha*/
+    color: #1C1919;
+   }
+   
+.lv {
+    border-left: 2px solid;/* Adiciona borda esquerda na div como ser fosse uma linha.*/
+    box-sizing: border-box;
+    color: #1C1919;
+    margin-left: 20px;
+    position: absolute;
+    left: 160px;
+}
+
+
+/*Main*/
+
+/*tela ingressos*/
+
+.page-header {
+    background-size: cover;
+    min-height: 85vh;
+    max-height: 999px;
+}
+
+.logo-container{
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    display: block;
+    margin-bottom: 3vw;
+}
+
+.event-details-subtitle{
+    color: #FFFFFF;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.elipse-space{
+    min-height: 1px;
+    display: inline-flex;
+}
+
+#day{
+    background-image: url(../img/card-day.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.day-elipse {
+    min-height: 80px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+
+}
+
+.ticket-card { 
+    cursor: pointer; 
+    padding: 20px; 
+    margin: 10px; 
+}
+
+.ticket-card:hover {
+    transform: scale(1.1);
+    transition: 1000ms;
+}
+
+
+
+/*table*/
+
+
+#title-table{
+    text-transform: uppercase;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+table tbody tr{
+    border: none;
+}
+
+table body tr td{
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.table td, .table th{
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+#btn-remover{
+    box-sizing: border-box;
+    border-width: 2px;
+    font-weight: 600;
+    line-height: 1.75;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
+
+#btn-confirmar {
+    box-sizing: border-box;
+    border-width: 2px;
+    font-weight: 600;
+    line-height: 1.75;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
+
+#btn-finalizar{
+    box-sizing: border-box;
+    border-width: 2px;
+    font-weight: 600;
+    margin-right: 3px;
+    text-transform: uppercase;
+    border-radius: 15px;
+    width: 100%;
+}
+
+/*Table dados*/
+
+.card-title {
+    color: #1C1919;
+    text-decoration: none;
+    margin-bottom: .75rem;
+}
+
+#text-campo {
+    font-size: .9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.5rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+#checkout-form-container {
+    display: none;
+}
+
+
+/*Tela confirmação compra*/
+
+.card-title {
+    margin-bottom: 0;
+}
+
+#summary {
+    padding-top: 20px;
+    padding-left: 40px;
+}
+
+p {
+    font-size: 15px;
+    line-height: 1.5rem;
+    margin-bottom: 5px;
+    color: #1C1919;
+    margin-top: 0;
+}
+
+hr {
+    color: #FFFFFF;
+}
+
+/*Checkbox*/
+
+#forms-checkbox {
+    justify-content: left;
+}
+
+/*Finalizar inscrição*/
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+#col-12-alert {
+    position: relative;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#alert {
+    align-items: center;
+    justify-content: center;
+}
+
+.form-check {
+    margin-left: 18px;
+    margin-bottom: 8px;
+}
+
+
+
+/*Footer*/
+
+#footer-area {
+    text-align: center;
+    padding-top: 4vw;
+}
+
