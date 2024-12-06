@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groove - Fila</title>
+    <!--Fonte-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style-line.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!--Biblioteca Font Awesome-->
+    <script src="https://kit.fontawesome.com/551966b153.js" crossorigin="anonymous"></script>
+    <script src="../js/progressbar.min.js"></script>
+
+    <!--Progress Bar-->
+    <script src="../js/progressbar.min.js"></script>
+ 
+    <!--Parallax-->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <div class="bg-navbar d-block d-lg-none sticky-top navbar navbar-expand-lg navbar-light">
+            <div class="containar-fluid">
+                <button aria-controls="basic-navbar-nav" type="button" aria-label="Toogle navegation" class="navbar-toggler collapsed">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <nav class="bg-navbar d-block d-lg-block sticky-top">
+            <div class="nav-container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-xl-4">
+                        <a href="./home.html" class="navbar-brand mx-auto">
+                            <div class="logo-nav-bar d-flex justify-content-center justify-content-lx-start align-items-center mt-3 mt-xl-0">
+                                <img id="logo" class="img-fluid" src="../img/Group 16.png" alt="Groove">
+                                <span id="span-date" class="d-none d-lg-flex text-data-header">20 e 21 de setembro</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+    
+                    <div class="col-12 col-xl-8 p-0">
+                        <div class="d-flex flex-wrap justify-content-center justify-content-lx-end align-items-center content-button-nav-bar">
+                            <a href="home.html" class="text-decoration-none button-navbar nav-item nav-link" id="about-menu" style="text-transform: uppercase;">Página Inicial</a>
+                            <a href="about.html" class="text-decoration-none button-navbar nav-item nav-link" id="line-menu" style="text-transform: uppercase;">Sobre</a>
+                            <a href="subscribe.html" class="text-decoration-none button-navbar nav-item nav-link" id="subscribe-menu" style="text-transform: uppercase;">Inscreva-se</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+<main> 
+    <div class="container mt-5"> 
+        <h1 class="text-center" style="color: #fff; font-weight: 400;">Verifique a sua posição na fila</h1> 
+        <form id="cpfForm" style="margin-top: 50px;"> 
+            <div class="form-group"> 
+                <label for="cpf" style="color: #fff; margin-bottom: 10px;">CPF:</label> 
+                <input type="text" name="cpf" class="form-control" id="cpf" oninput="aplicarMascaraCPF(this)" maxlength="14" placeholder="000.000.000-00" required> 
+            </div> 
+            <button id="verify" type="submit" class="btn btn-primary" style="background-color: #DEAC30; border-color: #DEAC30; margin-top: 25px;">Verificar</button> 
+        </form> 
+        <div id="result" class="mt-3"></div>
+        <hr style="margin-top: 50px; border: 1px solid #FFFFFF;">
+        <div class="form-group"> 
+            <label for="position" style="color: #fff; margin-bottom: 10px; margin-top: 20px;">Sua posição na fila é:</label> 
+            <input type="text" class="form-control" id="position" readonly> 
+        </div>
+        <div class="form-group mt-3"> 
+            <label for="name" style="color: #fff; margin-bottom: 10px;">Nome:</label> 
+            <input type="text" class="form-control" id="name" readonly> 
+        </div> 
+        <div class="form-group mt-3"> 
+            <label for="ticket" style="color: #fff; margin-bottom: 10px;">Ingresso:</label> 
+            <input type="text" class="form-control" id="ticket" readonly>
+        </div>
+        <div class="form-group mt-3">
+            <button class="btn btn-danger" id="exit-btn" style="margin-top: 10px;">Sair da fila</button>
+        </div>
+    </div> 
+
+
+    <!--Pop-up confirmação-->
+    
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true"> 
+        <div class="modal-dialog"> 
+            <div class="modal-content"> 
+                <div class="modal-header"> 
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmação</h5> 
+                </div> 
+                <div class="modal-body">
+                    <p style="color: #1C1919; font-size: 16px; font-weight: 500;">Você realmente deseja sair da fila?</p>
+                    <p style="padding-bottom: 15px; color: #1C1919;">Ao sair da fila a sua posição não estará mais garantida e, caso queira, sera necessário se cadastrar novamente começando do final da fila.</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="conform-checkbox">
+                        <label class="form-check-label" for="confirm-checkbox" style="font-size: 14px;">
+                            Confirmo que desejo sair da fila
+                        </label>
+                    </div>
+                </div> 
+                <div class="modal-footer"> 
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
+                    <button type="button" class="btn btn-danger" id="confirm-exit-btn">Sair da Fila</button> 
+                </div> 
+            </div> 
+        </div>
+    </div>
+
+        <!--Pop-up sucesso-->
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true"> 
+        <div class="modal-dialog"> 
+            <div class="modal-content"> 
+                <div class="modal-header"> 
+                    <h5 class="modal-title" id="successModalLabel">Sucesso</h5> 
+                </div> 
+                <div class="modal-body"> 
+                    Você saiu da fila com sucesso. 
+                </div> 
+                <div class="modal-footer">
+                    <a href="./home.html"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button> </a>
+                </div> 
+            </div> 
+        </div>
+    </div>
+</main>
+
+
+    <footer>
+        <div id="footer-area">
+            <div class="containar-patrocinadores">
+                <div class="row">
+                    <div class="col-md-12" id="patrocinadores">
+                        <h3 id="patro-text">Patrocinadores</h3>
+                    </div>
+        
+                    <div class="col-md-4 contact-box">
+                        <a href="https://banco.bradesco/html/classic/index.shtm" target="_blank">
+                            <img style="width: 80px;" src="../img/Bradesco_V_Red_RGB 1.svg" alt="Bradesco">
+                        </a>
+                    </div>
+        
+                    <div class="col-md-4 contact-box">
+                        <a href="https://www.cervejaspaten.com.br/" target="_blank">
+                            <img style="width: 120px;" src="../img/Spaten_logo-3.svg" alt="Spaten">
+                        </a>
+                    </div>
+        
+                    <div class="col-md-4 contact-box">
+                        <a href="https://www.redbull.com/br-pt/energydrink/empresa-red-bull?gad_source=1&gclid=Cj0KCQiAuou6BhDhARIsAIfgrn7x94yHgHPwatr7k-sZVAzhs0IWu4E4b8sGMnLogcW-vaSeVR6SymAaAls0EALw_wcB" target="_blank">
+                            <img style="width: 80px;" src="../img/redbullenergydrink.svg" alt="Redbull">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-topbar" style="width: 100%; height: 41px;" id="space"></div>
+                
+            <div class="container-redes">
+                <div class="row links-footer justify-content-center gap-3 gap-md-= align-items-center mb-5 mb-md-0">
+                    <div class="col-12 col-md-6">
+                        <div class="groove-logo d-flex flex-wrap justify-content-left">
+                            <img id="logo-footer" src="../img/Group 16.png" alt="Groove">
+                        </div>
+                    </div>
+                        
+
+                    <div class="social-logo col-12 col-md-4 topbar-icons">
+                        <div class="d-flex gap-3 justify-content-lg-center justify-content-center">
+                            <a href="">
+                                <i class="fa-brands fa-instagram fa-xl"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa-brands fa-facebook fa-xl"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa-brands fa-youtube fa-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 cc-footer">
+                    <p>THE GROOVE &copy; SÃO PAULO, 2024 </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/line.js"></script>
+</body>
+</html>
