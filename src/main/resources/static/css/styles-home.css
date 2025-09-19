@@ -1,0 +1,246 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Poppins';
+    background-color: #1C1919;
+}
+
+.row {
+    margin: 0;
+}
+
+.container {
+    padding: 70px 0;
+}
+
+p, li {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+
+/* Navbar styles */ 
+header .navbar {
+    background-color: #1C1919;
+}
+
+
+#logo {
+    width: 7rem; /* Aproximadamente 100px */
+    margin-left: 4.5rem; /* Aproximadamente 40px */
+}
+
+#span-date {
+    font-size: 12px;
+    padding: 10px;
+}
+
+.navbar-brand {
+    padding-top: 10px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20vw;
+}
+
+.navbar-brand span{
+    color: #FFFFFF;
+}
+
+.button-navbar {
+    color: #DEAC30;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    width: auto;
+    height: 80px;
+    position: relative;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    padding-bottom: 0;
+}
+
+.button-navbar:hover {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+
+
+.box {
+    width: 50%;
+    float: left;
+    height: 80px;/*Altura da linha*/
+    color: #1C1919;
+   }
+   
+.lv {
+    border-left: 2px solid;/* Adiciona borda esquerda na div como ser fosse uma linha.*/
+    box-sizing: border-box;
+    color: #1C1919;
+    margin-left: 20px;
+    position: absolute;
+    left: 160px;
+}
+
+/*Banner*/
+
+.container-banner #banner {
+    width: 100%;
+    margin: 0;
+}
+
+/*Phrase Area*/
+
+.about-title{
+    color: #FFFFFF;
+    font-weight: 400;
+    text-align: center;
+    font-size: max(25px, 2.55vw);
+}
+
+.about-subtitle{
+    color: #FFFFFF;
+    font-weight: 300;
+    text-align: center;
+    padding: 0 0 10px 0;
+    font-size: max(15px, 2vw);
+}
+
+
+#about-area{
+    background-color: #1C1919;
+}
+
+#about-area img {
+    width: 600px;
+}
+
+#about-texts{
+    color: #FFFFFF;
+    justify-items: center;
+    margin-top: 54px;
+}
+
+/*Slider*/
+
+.container-fluid {
+    padding: 0;
+}
+
+
+.carousel-indicators {
+    margin-bottom: 35px;
+}
+
+.carousel-indicators button {
+    background-color: #000;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+}
+
+/*Subscribe area*/
+
+#texts-subscribe{
+    padding-top: 8vw;
+}
+
+.subscribe-title {
+    color: #FFFFFF;
+    font-weight: 400;
+    text-align: center;
+    padding: 0 0 10px 0;
+    font-size: max(20px, 2vw);
+}
+
+.subscribe-subtitle {
+    color: #FFFFFF;
+    font-weight: 400;
+    text-align: center;
+    padding: 0 0 60px 0;
+    font-size: max(20px, 2vw);
+}
+
+.main-btn {
+    background-color: #802013;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    width: 200px;
+    height: 60px;
+    padding: 10px 30px;
+    transition: .5s;
+    text-decoration: none;
+    
+}
+
+.main-btn:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+    background-color: #58150c;
+}
+
+.carousel-indicators .active {
+    background-color: #802013;
+}
+
+
+/*Footer*/
+
+#space {
+    background-color: #DEAC30;
+}
+
+#footer-area {
+    text-align: center;
+    padding-top: 4vw;
+}
+
+#patrocinadores {
+    margin-bottom: 60px;
+    color: #FFFFFF;
+}
+
+#patro-text {
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.contact-box {
+    padding-bottom: 50px;
+    margin-bottom: 100px;
+    padding: 0;
+}
+
+.social-logo i {
+    color: #FFFFFF;
+    padding: 6px;
+    padding-top: 1vw;
+}
+
+.social-logo i:hover{
+    color:#DEAC30 ;
+}
+
+
+.main-title{
+    margin-bottom: 60px;
+    color: #FFFFFF;
+}
+
+#logo-footer {
+    padding-left: 12vw;
+    padding-bottom: 5vw;
+    padding-top: 5vw;
+}
+
+.cc-footer {
+    padding-bottom: 1.2vw;
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groove</title>
+    <!--Fonte-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styles-home.css">
+
+    <!--Biblioteca Font Awesome-->
+    <script src="https://kit.fontawesome.com/551966b153.js" crossorigin="anonymous"></script>
+
+    <!--Progress Bar-->
+    <script src="../js/progressbar.min.js"></script>
+ 
+    <!--Parallax-->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+    <header>
+        <div class="bg-navbar d-block d-lg-none sticky-top navbar navbar-expand-lg navbar-light">
+            <div class="containar-fluid">
+                <button aria-controls="basic-navbar-nav" type="button" aria-label="Toogle navegation" class="navbar-toggler collapsed">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <nav class="bg-navbar d-block d-lg-block sticky-top">
+            <div class="nav-container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-xl-4">
+                        <a href="#" class="navbar-brand mx-auto">
+                            <div class="logo-nav-bar d-flex justify-content-center justify-content-lx-start align-items-center mt-3 mt-xl-0">
+                                <img id="logo" class="img-fluid" src="../img/Group 16.png" alt="Groove">
+                                <span id="span-date" class="d-none d-lg-flex text-data-header">20 e 21 de setembro</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+    
+                    <div class="col-12 col-xl-8 p-0">
+                        <div class="d-flex flex-wrap justify-content-center justify-content-lx-end align-items-center content-button-nav-bar">
+                            <a href="about.html" class="text-decoration-none button-navbar nav-item nav-link" id="about-menu" style="text-transform: uppercase;">Sobre</a>
+                            <a href="line.html" class="text-decoration-none button-navbar nav-item nav-link" id="line-menu" style="text-transform: uppercase;">Fila</a>
+                            <a href="subscribe.html" class="text-decoration-none button-navbar nav-item nav-link" id="subscribe-menu" style="text-transform: uppercase;">Inscreva-se</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="mainSlider" class="carousel-home carousel slide carousel-fade">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-targert data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-targert data-bs-slide-to="1"></button>
+                <button type="button" data-bs-targert data-bs-slide-to="2"></button>
+                <button type="button" data-bs-targert data-bs-slide-to="3"></button>
+                <button type="button" data-bs-targert data-bs-slide-to="4"></button>
+                <button type="button" data-bs-targert data-bs-slide-to="5"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-home-item active carousel-item">
+                    <div>
+                        <div class="d-flex justify-content-center bg-dark">
+                            <img src="../img/BadReligion.png" class="d-block w-100" alt="Bandas de Punk Rock">
+                            <div class="carousel-caption d-none d-md-block"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-home-item carousel-item">
+                    <div>
+                        <div class="d-flex justify-content-center bg-dark">
+                            <img src="../img/Rancid.png" class="carousel-home-item-image w-100 banner-home d-none d-lg-block" alt="Bandas de Pop Punk">
+                            <div class="carousel-caption d-none d-md-block"></div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="carousel-home-item carousel-item">
+                    <div>
+                        <div class="d-flex justify-content-center bg-dark">
+                            <img src="../IMG/mifits.png" class="carousel-home-item-image w-100 banner-home d-none d-lg-block" alt="Bandas de Pop Punk">
+                            <div class="carousel-caption d-none d-md-block"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-home-item carousel-item">
+                    <div>
+                        <div class="d-flex justify-content-center bg-dark">
+                            <img src="../img/GrennDay.png" class="carousel-home-item-image w-100 banner-home d-none d-lg-block" alt="Bandas de Pop Punk">
+                            <div class="carousel-caption d-none d-md-block"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-home-item carousel-item">
+                    <div>
+                        <div class="d-flex justify-content-center bg-dark">
+                            <img src="../img/TheOffspring.png" class="carousel-home-item-image w-100 banner-home d-none d-lg-block" alt="Bandas de Pop Punk">
+                            <div class="carousel-caption d-none d-md-block"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-home-item carousel-item">
+                    <div>
+                        <div class="d-flex justify-content-center bg-dark">
+                            <img src="../img/Sum41.png" class="carousel-home-item-image w-100 banner-home d-none d-lg-block" alt="Bandas de Pop Punk">
+                            <div class="carousel-caption d-none d-md-block"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+
+            <a href="#mainSlider" class="carousel-control-prev" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a href="#mainSlider" class="carousel-control-next" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        
+
+        
+
+        <div class="container-fluid">
+                   
+            <div id="subscribe-area">
+                <div class="row">
+                    <div class="col-12" id="texts-subscribe">
+                        <h3 class="subscribe-title">QUER SER UM DOS PRIMEIROS A CONSEGUIR O INGRESSO?</h3>
+                        <h3 class="subscribe-subtitle"> INSCREVA-SE E GARANTA SEU LUGAR NA FILA</h3>
+                    </div>  
+                </div>
+            </div>
+
+
+            <div class="container-banner">
+                <div id="banner" class="text-bg-dark" style="border-radius: 0px;">
+                    <img src="../img/banner-hbackground.png" class="card-img w-100" style="width: 100%;" alt="Banner do festival Groove com as bandas e a frase 'Prepare-se para o mosh mais intenso da sua vida'">
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <div id="footer-area">
+            <div class="containar-patrocinadores">
+                <div class="row">
+                    <div class="col-md-12" id="patrocinadores">
+                        <h3 id="patro-text">Patrocinadores</h3>
+                    </div>
+        
+                    <div class="col-md-4 contact-box">
+                        <a href="https://banco.bradesco/html/classic/index.shtm" target="_blank">
+                            <img style="width: 80px;" src="../img/Bradesco_V_Red_RGB 1.svg" alt="Bradesco">
+                        </a>
+                    </div>
+        
+                    <div class="col-md-4 contact-box">
+                        <a href="https://www.cervejaspaten.com.br/" target="_blank">
+                            <img style="width: 120px;" src="../img/Spaten_logo-3.svg" alt="Spaten">
+                        </a>
+                    </div>
+        
+                    <div class="col-md-4 contact-box">
+                        <a href="https://www.redbull.com/br-pt/energydrink/empresa-red-bull?gad_source=1&gclid=Cj0KCQiAuou6BhDhARIsAIfgrn7x94yHgHPwatr7k-sZVAzhs0IWu4E4b8sGMnLogcW-vaSeVR6SymAaAls0EALw_wcB" target="_blank">
+                            <img style="width: 80px;" src="../img/redbullenergydrink.svg" alt="Redbull">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-topbar" style="width: 100%; height: 41px;" id="space"></div>
+                
+            <div class="container-redes">
+                <div class="row links-footer justify-content-center gap-3 gap-md-= align-items-center mb-5 mb-md-0">
+                    <div class="col-12 col-md-6">
+                        <div class="groove-logo d-flex flex-wrap justify-content-left">
+                            <img id="logo-footer" src="../img/Group 16.png" alt="Groove">
+                        </div>
+                    </div>
+                        
+
+                    <div class="social-logo col-12 col-md-4 topbar-icons">
+                        <div class="d-flex gap-3 justify-content-lg-center justify-content-center">
+                            <a href="">
+                                <i class="fa-brands fa-instagram fa-xl"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa-brands fa-facebook fa-xl"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa-brands fa-youtube fa-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 cc-footer">
+                    <p>THE GROOVE &copy; SÃO PAULO, 2024 </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/scripts.js"></script>
+</body>
+</html>

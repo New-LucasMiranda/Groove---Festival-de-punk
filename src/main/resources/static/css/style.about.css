@@ -1,0 +1,237 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Poppins';
+    background-color: #1C1919;
+}
+
+.row {
+    margin: 0;
+}
+
+.container {
+    padding: 70px 0;
+}
+
+p, li {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+
+/* Navbar styles */ 
+header .navbar {
+    background-color: #1C1919;
+}
+
+
+#logo {
+    width: 7rem; /* Aproximadamente 100px */
+    margin-left: 4.5rem; /* Aproximadamente 40px */
+}
+
+#span-date {
+    font-size: 12px;
+    padding: 10px;
+}
+
+.navbar-brand {
+    padding-top: 10px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20vw;
+}
+
+.navbar-brand span{
+    color: #FFFFFF;
+}
+
+.button-navbar {
+    color: #DEAC30;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    width: auto;
+    height: 80px;
+    position: relative;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    padding-bottom: 0;
+}
+
+.button-navbar:hover {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+
+
+.box {
+    width: 50%;
+    float: left;
+    height: 80px;/*Altura da linha*/
+    color: #1C1919;
+   }
+   
+.lv {
+    border-left: 2px solid;/* Adiciona borda esquerda na div como ser fosse uma linha.*/
+    box-sizing: border-box;
+    color: #1C1919;
+    margin-left: 20px;
+    position: absolute;
+    left: 160px;
+}
+
+/*Main*/
+
+/*Accordion*/
+
+main{
+    background-color: #c99d2f;
+}
+
+.page-main .section-about{
+    padding: 40px;
+}
+
+.title-section{
+    margin-bottom: 25px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+
+.title-section h1{
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 50px;
+}
+
+.content-subtitle span{
+    color: #FFFFFF;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 2px;
+    font-weight: 200;
+}
+
+.accordion-button {
+    background-color: transparent;
+    color: #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    padding: 20px 0;
+    border-radius: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.accordion-button[aria-expanded=true]{
+    background-color: transparent;
+    color: #fff;
+}
+
+.accordion-button:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+
+.accordion-button:hover{
+    background-color: transparent;
+}
+
+.custom-body{
+    border-bottom: 2px solid #fff;
+    padding: 20px 0;
+}
+
+
+.section-about{
+    padding: 40px 0;
+    text-align: left;
+}
+
+.section-about p{
+    color: #FFFFFF;
+}
+
+#groove-day {
+    border: none;
+    background-color: transparent;
+}
+
+#groove-pass {
+    border: none;
+    background-color: transparent;
+}
+
+#groove-vip {
+    border: none;
+    background-color: transparent;
+}
+
+.accordion-body p{
+    font-size: 16px;
+}
+
+
+
+/*Footer*/
+
+#space {
+    background-color: #c99d2f;
+}
+
+#footer-area {
+    text-align: center;
+    padding-top: 4vw;
+}
+
+#patrocinadores {
+    margin-bottom: 60px;
+    color: #FFFFFF;
+}
+
+#patro-text {
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.contact-box {
+    padding-bottom: 50px;
+    margin-bottom: 100px;
+    padding: 0;
+}
+
+.social-logo i {
+    color: #FFFFFF;
+    padding: 6px;
+    padding-top: 1vw;
+}
+
+.social-logo i:hover{
+    color:#DEAC30 ;
+}
+
+
+.main-title{
+    margin-bottom: 60px;
+    color: #FFFFFF;
+}
+
+#logo-footer {
+    padding-left: 12vw;
+    padding-bottom: 5vw;
+    padding-top: 5vw;
+}
+
+.cc-footer {
+    padding-bottom: 1.2vw;
+}
