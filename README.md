@@ -1,4 +1,4 @@
-# 🎸 Groove Festival System
+#  Groove Festival System
 
 Groove Festival System é uma aplicação web fullstack que simula a venda de ingressos para um evento fictício de dois dias, incorporando controle de acesso por fila, reservas por setor e notificações automatizadas.
 
@@ -6,7 +6,7 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## 🚀 Funcionalidades
+##  Funcionalidades
 
 - Landing page interativa para um evento fictício
 - Sistema de fila para acesso antecipado a ingressos
@@ -26,7 +26,7 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## 🧠 Conceitos Técnicos Aplicados
+##  Conceitos Técnicos Aplicados
 
 ### 🔹 Controle de Acesso com Fila (FIFO)
 - Implementação de múltiplas filas em memória
@@ -54,7 +54,7 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## 🏗️ Arquitetura
+##  Arquitetura
 
 ### Backend
 - Java + Spring Boot
@@ -70,7 +70,7 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## 🔄 Fluxo do Sistema
+##  Fluxo do Sistema
 
 1. Usuário se cadastra para ingresso
 2. Sistema adiciona o usuário na fila (exceto VIP)
@@ -86,7 +86,7 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## ⚙️ Validações e Regras de Negócio
+##  Validações e Regras de Negócio
 
 - Validação completa de CPF no frontend
 - VIP não entra na fila
@@ -96,7 +96,7 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## 💡 Destaques Técnicos
+##  Destaques Técnicos
 
 - Integração entre eventos de sistema (fila → email → ação do usuário)
 - Aplicação prática de estruturas de dados em sistema real
@@ -106,7 +106,7 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## 🔧 Possíveis Melhorias
+##  Possíveis Melhorias
 
 - Persistência completa das filas (atualmente em memória)
 - Uso de mensageria (RabbitMQ/Kafka) para eventos
@@ -116,6 +116,6 @@ O sistema foi projetado para aplicar estruturas de dados clássicas (fila e pilh
 
 ---
 
-## 📌 Objetivo do Projeto
+##  Objetivo do Projeto
 
 Este projeto foi desenvolvido com foco educacional, com o objetivo de aplicar estruturas de dados clássicas em um cenário prático, simulando sistemas reais de venda de ingressos com controle de acesso e concorrência.
