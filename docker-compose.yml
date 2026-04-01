@@ -4,7 +4,7 @@ services:
     container_name: groove-postgres
     restart: always
     environment:
-      POSTGRES_DB: A3_project
+      POSTGRES_DB: a3_project
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      POSTGRES_DB_URL: jdbc:postgresql://db:5432/A3_project
+      POSTGRES_DB_URL: jdbc:postgresql://db:5432/a3_project
       POSTGRES_DB_USER: postgres
       POSTGRES_DB_PASSWORD: postgres
       MAIL_USERNAME: ${MAIL_USERNAME}
