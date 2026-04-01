@@ -2,8 +2,10 @@ package br.anhembi.spring_proja3.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
 
      @Id
@@ -14,13 +16,13 @@ public class User {
      private String dia;
      private String primReserva;
      private String segReserva;
-     private boolean situação;
+     private boolean situacão;
 
      public User() {
      }
 
      public User(String cpf, String nome, int idade, String email, String dia, String primReserva, String segReserva,
-               boolean situação) {
+               boolean situacão) {
           this.cpf = cpf;
           this.nome = nome;
           this.idade = idade;
@@ -28,7 +30,7 @@ public class User {
           this.dia = dia;
           this.primReserva = primReserva;
           this.segReserva = segReserva;
-          this.situação = situação;
+          this.situacão = situacão;
      }
 
      public String getPrimReserva() {
@@ -88,16 +90,16 @@ public class User {
      }
 
      public boolean getSituação() {
-          return situação;
+          return situacão;
      }
 
-     public void setSituação(boolean situação) {
-          this.situação = situação;
+     public void setSituação(boolean situacão) {
+          this.situacão = situacão;
      }
 
      public User copy() {
 
-          return new User(cpf, nome, idade, email, dia, primReserva, segReserva, situação);
+          return new User(cpf, nome, idade, email, dia, primReserva, segReserva, situacão);
 
      }
 }
