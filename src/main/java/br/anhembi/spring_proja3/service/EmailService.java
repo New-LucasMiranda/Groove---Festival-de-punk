@@ -13,9 +13,9 @@ public class EmailService {
 
      public void sendEmail(String to, String subject, String body) {
           SimpleMailMessage message = new SimpleMailMessage();
-          message.setTo(to); // Destinatário
-          message.setSubject(subject); // Assunto
-          message.setText(body); // Corpo do e-mail
-          emailSender.send(message); // Envia o e-mail
+          message.setTo(to); 
+          message.setSubject(subject); 
+          message.setText(body);
+          emailSender.send(message);
      }
 }

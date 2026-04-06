@@ -19,7 +19,6 @@ public class SectorsService {
      @Autowired
      private SectorsRepo repo;
 
-     // Instanciando pilhas diretamente para cada setor
      private TicketStack primCamaroteStack;
      private TicketStack primPistaStack;
      private TicketStack primPistaPremiumStack;
@@ -28,17 +27,14 @@ public class SectorsService {
      private TicketStack segPistaStack;
      private TicketStack segPistaPremiumStack;
 
-     // Método de inicialização com @PostConstruct
      @PostConstruct
      public void init() {
-          // Buscar todos os setores do banco de dados
+     
           List<Sectors> sectors = repo.findAll();
 
-          // Para cada setor, inicialize a pilha com a quantidade de ingressos
           for (Sectors sector : sectors) {
-               int qtdDisp = sector.getQtdDisp(); // Quantidade de ingressos disponíveis
+               int qtdDisp = sector.getQtdDisp(); 
 
-               // Instancia as pilhas diretamente para cada setor
                switch (sector.getNome()) {
                     case "PrimCamarote":
                          primCamaroteStack = new TicketStack(qtdDisp);
@@ -63,7 +59,7 @@ public class SectorsService {
                          VIPStack = new TicketStack(qtdDisp);
                          break;
                     default:
-                         // Caso algum setor desconhecido, pode lançar uma exceção ou fazer outra ação
+
                          break;
                }
                System.out.println("Setor: " + sector.getNome() + " - Pilha de ingressos inicializada com " + qtdDisp
@@ -71,7 +67,6 @@ public class SectorsService {
           }
      }
 
-     // Métodos para acessar as pilhas de ingressos de cada setor
      public TicketStack getPrimCamaroteStack() {
           return primCamaroteStack;
      }
@@ -100,39 +95,34 @@ public class SectorsService {
           return segPistaPremiumStack;
      }
 
-     // Método para obter a quantidade disponível de um setor
      @Transactional(readOnly = true)
      public int getQtdDisp(String nome) {
           Optional<Sectors> obj = repo.findById(nome);
-          return obj.map(Sectors::getQtdDisp).orElse(0); // Retorna 0 se não encontrar
+          return obj.map(Sectors::getQtdDisp).orElse(0); 
      }
 
-     // Método para empilhar um ingresso
      public boolean stackTicket(String nomeSetor, Ticket ticket) {
           TicketStack stack = getStackByNome(nomeSetor);
           if (stack != null) {
-               return stack.stack(ticket); // Empilha o ingresso
+               return stack.stack(ticket);
           }
-          return false; // Se a pilha não existir
+          return false;
      }
 
-     // Método para desempilhar um ingresso
      public Ticket unstack(String nomeSetor) {
           TicketStack stack = getStackByNome(nomeSetor);
           return stack != null ? stack.unstack() : null;
      }
 
-     // Método para obter a taxa de ocupação da pilha
      public double getOccupationRate(String nomeSetor) {
           TicketStack stack = getStackByNome(nomeSetor);
           return stack != null ? stack.getOccupationRate() : 0.0;
      }
 
      public List<Sectors> getAllSectors() {
-          return repo.findAll(); // This fetches all sectors from the database
+          return repo.findAll(); 
      }
 
-     // Método para obter a pilha de um setor com base no nome
      private TicketStack getStackByNome(String nome) {
           switch (nome) {
 
@@ -155,14 +145,10 @@ public class SectorsService {
           }
      }
 
-     // Métodos para manipular setores
-
-     // Método para inserir um novo setor
      public Sectors insert(Sectors obj) {
           return repo.save(obj);
      }
 
-     // Método para excluir um setor
      public boolean delete(String nome) {
           Optional<Sectors> optionalSectors = repo.findById(nome);
           if (optionalSectors.isPresent()) {
@@ -173,20 +159,18 @@ public class SectorsService {
           }
      }
 
-     // Método para atualizar a quantidade disponível de um setor
      public Sectors decrementQtdDisp(String nome) {
           Optional<Sectors> optionalSectors = repo.findById(nome);
 
           if (optionalSectors.isPresent()) {
                Sectors obj = optionalSectors.get();
 
-               // Decrementa qtdDisp em 1, garantindo que não fique negativo
                if (obj.getQtdDisp() > 0) {
                     obj.setQtdDisp(obj.getQtdDisp() - 1);
-                    return repo.save(obj); // Salva a alteração no banco de dados
+                    return repo.save(obj); 
                } else {
                     System.out.println("Quantidade disponível já é 0. Não é possível decrementar.");
-                    return null; // Retorna null caso a quantidade já seja 0
+                    return null; 
                }
           } else {
                System.out.println("Setor com nome '" + nome + "' não encontrado.");

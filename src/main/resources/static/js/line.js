@@ -1,3 +1,7 @@
+// Configuração da API
+API.base = window.location.origin;
+
+// Elementos DOM
 const cpfInput = document.getElementById('cpf');
 const positionOutput = document.getElementById('position');
 const nameOutput = document.getElementById('name');
@@ -8,10 +12,12 @@ const popConfirmExit = document.getElementById('successModal');
 const confirmationModalElement = document.getElementById('confirmationModal');
 const confirmationCheckbox = document.getElementById('conform-checkbox');
 const confirmExitButton = document.getElementById('confirm-exit-btn');
-// Criação de uma instância do modal Bootstrap
-const confirmationModal = new bootstrap.Modal(confirmationModalElement);
-const popupExit = new bootstrap.Modal(popConfirmExit); // Inicializa o de saida concluida
 
+// Modais Bootstrap
+const confirmationModal = new bootstrap.Modal(confirmationModalElement);
+const popupExit = new bootstrap.Modal(popConfirmExit);
+
+// Máscara CPF
 function maskCPF(value) {
     return value.replace(/\D/g, "")
                 .replace(/(\d{3})(\d)/, "$1.$2")
@@ -19,12 +25,11 @@ function maskCPF(value) {
                 .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 }
 
-// Event listener para aplicar a máscara de CPF e impedir inserção de letras
 cpfInput.addEventListener('input', function() {
     cpfInput.value = maskCPF(cpfInput.value);
 });
 
-// Adiciona evento ao botão
+// Botão verificar
 btnVerify.addEventListener("click", async () => {
     const cpf = cpfInput.value.trim();
 
@@ -35,57 +40,43 @@ btnVerify.addEventListener("click", async () => {
     }
 
     await getUserData(cpf);
-
 });
 
+// Botão sair da fila
 btnExit.addEventListener("click", async () => {
     const cpf = cpfInput.value.trim();
 
-    try {
-        // Verifica se o CPF é válido
-        if (!isValidCPF(cpf)) {
-            showAlert("CPF inválido. Por favor, tente novamente.", "danger");
-            clearFields();
-            return;
-        }
-
-        // Abre o modal de confirmação
-        confirmationModal.show();
-
-        // Adiciona um evento ao botão do modal para confirmar a saída da fila
-        confirmExitButton.addEventListener(
-            'click',
-            async function handleExitClick() {
-                if (confirmationCheckbox.checked) {
-                    try {
-                        // Tenta atualizar as reservas e situação do usuário
-                        await deleteUserDataOnQueue(cpf);
-                        await updateUserSituation(cpf);
-
-                        // Exibe o modal de sucesso após ambas as atualizações
-                        popupExit.show();
-
-                        // Fecha o modal de confirmação
-                        confirmationModal.hide();
-
-                        // Remove o evento do botão após a execução
-                        confirmExitButton.removeEventListener('click', handleExitClick);
-                    } catch (error) {
-                        console.error("Erro ao sair da fila:", error);
-                    }
-                } else {
-                    showAlert("Por favor, confirme que deseja sair da fila.", "warning");
-                }
-            }
-        );
-    } catch (error) {
-        console.error("Erro ao processar saída da fila:", error);
+    if (!isValidCPF(cpf)) {
+        showAlert("CPF inválido. Por favor, tente novamente.", "danger");
+        clearFields();
+        return;
     }
+
+    confirmationModal.show();
+
+    confirmExitButton.addEventListener(
+        'click',
+        async function handleExitClick() {
+            if (confirmationCheckbox.checked) {
+                try {
+                    await deleteUserDataOnQueue(cpf);
+                    await updateUserSituation(cpf);
+
+                    popupExit.show();
+                    confirmationModal.hide();
+
+                    confirmExitButton.removeEventListener('click', handleExitClick);
+                } catch (error) {
+                    console.error("Erro ao sair da fila:", error);
+                }
+            } else {
+                showAlert("Por favor, confirme que deseja sair da fila.", "warning");
+            }
+        }
+    );
 });
 
-
-
-// Valida o CPF
+// Validação CPF
 function isValidCPF(cpf) {
     const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
     if (!cpfRegex.test(cpf)) return false;
@@ -114,161 +105,92 @@ function isValidCPF(cpf) {
     );
 }
 
-// Obtém os dados do usuário pelo CPF
+// 🔹 Buscar dados do usuário
 async function getUserData(cpf) {
     try {
-        // Primeira requisição para obter os dados do usuário
-        let url = "http://localhost:8080/users/" + cpf;
-        const response = await fetch(url, {
-            headers: { "Content-Type": "application/json" },
-        });
+        const data = await API.get(`/users/${cpf}`);
 
-        if (response.status === 200) {
-            const data = await response.json();
-            nameOutput.value = data.nome;
+        nameOutput.value = data.nome;
 
-            // Definindo o texto do ingresso (ticket)
-            let ticketText = '';
-            switch (data.dia) {
-                case "1":
-                    ticketText = 'Day One';
-                    break;
-                case "2":
-                    ticketText = 'Day Two';
-                    break;
-                case "VIP":
-                    ticketText = 'VIP';
-                    break;
-                default:
-                    ticketText = 'Pass';
-                    break;
-            }
-
-            tiketOutput.value = ticketText;
-
-            // Verifica se o ingresso é VIP
-            if (data.dia === "VIP") {
-                showAlert("Seu ingresso é VIP. Você não precisa entrar na fila.", "info");
-                positionOutput.value = '';  // Não exibe a posição, pois não é necessário
-                return;  // Retorna sem fazer a chamada pela posição
-            }
-
-            // Caso contrário, continua com a chamada para obter a posição na fila
-            let positionUrl = "http://localhost:8080/queues/" + data.dia + "/position/" + cpf;
-            const resp = await fetch(positionUrl, {
-                headers: { "Content-Type": "application/json" },
-            });
-
-            if (resp.status === 200) {
-                const dado = await resp.json();
-
-                // Verifica se o dado retornado é -1 (não está na fila)
-                if (data.situação === false) {
-                    showAlert("Você não está na fila no momento.", "warning");
-                } else {
-                    positionOutput.value = dado + "°";
-                }
-            } else {
-                showAlert("CPF não encontrado. Por favor, verifique seu CPF.", "warning");
-                clearFields();
-            }
-        } else {
-            showAlert("CPF não encontrado. Por favor, verifique seu CPF.", "warning");
-            clearFields();
+        let ticketText = '';
+        switch (data.dia) {
+            case "1": ticketText = 'Day One'; break;
+            case "2": ticketText = 'Day Two'; break;
+            case "VIP": ticketText = 'VIP'; break;
+            default: ticketText = 'Pass';
         }
+
+        tiketOutput.value = ticketText;
+
+        if (data.dia === "VIP") {
+            showAlert("Seu ingresso é VIP. Você não precisa entrar na fila.", "info");
+            positionOutput.value = '';
+            return;
+        }
+
+        const position = await API.get(`/queues/${data.dia}/position/${cpf}`);
+
+        if (data.situação === false) {
+            showAlert("Você não está na fila no momento.", "warning");
+        } else {
+            positionOutput.value = position + "°";
+        }
+
     } catch (error) {
-        console.error("Erro ao buscar dados do usuário:", error);
-        showAlert("Erro ao buscar dados do servidor.", "danger");
+        console.error("Erro ao buscar dados:", error);
+        showAlert("CPF não encontrado ou erro no servidor.", "warning");
+        clearFields();
     }
 }
 
-
+// 🔹 Remover da fila
 async function deleteUserDataOnQueue(cpf) {
-
     try {
-        // Primeira requisição para obter os dados do usuário
-        let url = "http://localhost:8080/users/" + cpf;
-        const response = await fetch(url, {
-        headers: { "Content-Type": "application/json" },
-        });
+        const data = await API.get(`/users/${cpf}`);
 
-        if (response.status === 200) {
-            const data = await response.json();
+        await API.delete(`/queues/${data.dia}/remove/${cpf}`);
 
-            let positionUrl = "http://localhost:8080/queues/" + data.dia + "/remove/" + cpf; 
-            const resp = await fetch(positionUrl, {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-            });
+        console.log("Desistência concluída com sucesso.");
+        clearFields();
 
-            if (resp.status === 200) {
-                console.log("Desistencia conxluida com sucesso.");   
-                clearFields();  
-            }
-
-        } else {
-            showAlert("CPF não encontrado. Por favor, verifique seu CPF.", "warning");           
-        }
     } catch (error) {
-        console.error("Erro ao buscar dados do usuário:", error);
-        showAlert("Erro ao buscar dados do servidor.", "danger");
+        console.error("Erro:", error);
+        showAlert("Erro ao processar saída da fila.", "danger");
     }
-
 }
+
+// 🔹 Atualizar situação
 async function updateUserSituation(cpf) {
-
     try {
-        // Primeira requisição para obter os dados do usuário
-        let url = "http://localhost:8080/users/" + cpf+ "/situacao";
+        await API.put(`/users/${cpf}/situacao`, false);
+        console.log("Situação atualizada com sucesso");
 
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(false),
-        });
-
-        if (response.status == 200) {           
-
-            console.log("Situação atualizada com sucesso")     
-            
-        } else {
-            console.log("Erro ao atualizar a situação", response.status);
-        }
     } catch (error) {
-        console.error("Erro ao buscar dados do usuário:", error);
-        showAlert("Erro ao buscar dados do servidor.", "danger");
+        console.error("Erro:", error);
+        showAlert("Erro ao atualizar situação.", "danger");
     }
-
 }
 
-
-// Mostra alertas na página
-// Mostra alertas na página
+// Alertas
 function showAlert(message, type) {
     const alertContainer = document.getElementById('result');
-    
-    // Limpa o conteúdo do container de alertas antes de adicionar a nova mensagem
-    alertContainer.innerHTML = ''; 
-
-    // Adiciona o novo alerta
+    alertContainer.innerHTML = '';
     alertContainer.innerHTML = `<div class="alert alert-${type} mt-3">${message}</div>`;
 }
 
-
-// Limpa os campos de saída
+// Limpar campos
 function clearFields() {
     positionOutput.value = '';
     nameOutput.value = '';
     tiketOutput.value = '';
 }
 
-// Validação do formulário com JQuery
+// JQuery validação
 $(document).ready(function () {
     console.log("JQuery está funcionando!");
 
     $('#cpfForm').on('submit', function (e) {
         e.preventDefault();
-        console.log("Formulário enviado!");
 
         const cpf = $('#cpf').val().trim();
 

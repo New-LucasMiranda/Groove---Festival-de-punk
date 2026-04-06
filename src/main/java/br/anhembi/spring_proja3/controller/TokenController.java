@@ -73,19 +73,24 @@ public class TokenController {
      * @return O userId associado ao token, ou uma mensagem de erro se o token for inválido.
      */
     @GetMapping("/get-user-id")
-    public ResponseEntity<String> getUserCPFfromToken(@RequestParam String token) {
+    public ResponseEntity<?> getUserCPFfromToken(@RequestParam String token) {
      // Valida o token
      if (!tokenService.isTokenValid(token)) {
          // Se o token for inválido ou expirado, retorna uma mensagem de erro
-         return ResponseEntity.status(400).body("Token inválido ou expirado.");
+         return ResponseEntity
+         .status(400)
+         .body("Token inválido ou expirado.");
      }
 
      // Se o token for válido, obtém o userId associado
      String userId = tokenService.getUserCPFfromToken(token);
+     
      if (userId != null) {
-         return ResponseEntity.ok(userId); // Retorna o userId
+         return ResponseEntity.ok(java.util.Map.of("cpf",userId)); 
      } else {
-         return ResponseEntity.status(400).body("Token inválido.");
+         return ResponseEntity
+         .status(400)
+         .body("Token inválido.");
      }
  }
 }
