@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:15
+    container_name: groove-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: a3_project
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: groove-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB_URL: jdbc:postgresql://db:5432/a3_project
+      POSTGRES_DB_USER: postgres
+      POSTGRES_DB_PASSWORD: postgres
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+
+volumes:
+  db_data:
