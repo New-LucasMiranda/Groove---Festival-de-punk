@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "sectors")
+@IdClass(SectorId.class)
 public class Sectors {
 
      @Id
