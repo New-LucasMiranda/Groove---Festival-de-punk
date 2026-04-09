@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class TokenService {
 
-    // fix: ConcurrentHashMap em vez de HashMap — acessado por múltiplas threads (scheduler + HTTP)
+    // ConcurrentHashMap: safe for multi-threaded access (scheduler + HTTP threads)
     private final Map<String, TokenInfo> tokens = new ConcurrentHashMap<>();
 
     private static final int TOKEN_EXPIRATION_MINUTES = 120;
@@ -18,7 +18,6 @@ public class TokenService {
     public String generateToken(String userId) {
         String token = UUID.randomUUID().toString();
         LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(TOKEN_EXPIRATION_MINUTES);
-
         tokens.put(token, new TokenInfo(userId, expirationTime));
         return token;
     }
@@ -44,11 +43,9 @@ public class TokenService {
     }
 
     public boolean invalidateToken(String token) {
-
         if (!isTokenValid(token)) {
             return false;
         }
-
         tokens.remove(token);
         return true;
     }
@@ -71,4 +68,3 @@ public class TokenService {
         }
     }
 }
-

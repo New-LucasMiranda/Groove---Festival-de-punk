@@ -3,7 +3,6 @@ package br.anhembi.groove_aplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
 public class GrooveAplication {
 
@@ -11,6 +10,4 @@ public class GrooveAplication {
 		SpringApplication.run(GrooveAplication.class, args);
 	}
 
-
 }
-

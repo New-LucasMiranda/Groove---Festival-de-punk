@@ -138,7 +138,7 @@ async function getUserData(cpf) {
 
     } catch (error) {
         console.error("Erro ao buscar dados:", error);
-        showAlert("CPF não encontrado na fila.", "warning");
+        showAlert("CPF não encontrado.", "warning");
         clearFields();
     }
 }

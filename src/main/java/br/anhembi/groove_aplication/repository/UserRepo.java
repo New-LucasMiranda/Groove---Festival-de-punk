@@ -7,4 +7,3 @@ import br.anhembi.groove_aplication.entities.User;
 public interface UserRepo extends JpaRepository<User, String> {
 
 }
-

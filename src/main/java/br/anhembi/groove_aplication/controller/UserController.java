@@ -1,6 +1,7 @@
 package br.anhembi.groove_aplication.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,10 @@ public class UserController {
 
     @GetMapping("/{cpf}")
     public ResponseEntity<User> getUserByCpf(@PathVariable String cpf) {
-        return userService.getUser(cpf)
+        String normalizedCpf = cpf.replaceAll("[^\\d]", "");
+        return userService.getUser(normalizedCpf)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new UserNotFoundException(cpf));
+                .orElseThrow(() -> new UserNotFoundException(normalizedCpf));
     }
 
     @PostMapping
@@ -45,22 +47,26 @@ public class UserController {
 
     @PutMapping("/{cpf}/prim-reserva")
     public ResponseEntity<User> updatePrimReserva(@PathVariable String cpf, @RequestBody String primReserva) {
-        return ResponseEntity.ok(userService.updatePrimReserva(cpf, primReserva));
+        String normalizedCpf = cpf.replaceAll("[^\\d]", "");
+        return ResponseEntity.ok(userService.updatePrimReserva(normalizedCpf, primReserva));
     }
 
     @PutMapping("/{cpf}/seg-reserva")
     public ResponseEntity<User> updateSegReserva(@PathVariable String cpf, @RequestBody String segReserva) {
-        return ResponseEntity.ok(userService.updateSegReserva(cpf, segReserva));
+        String normalizedCpf = cpf.replaceAll("[^\\d]", "");
+        return ResponseEntity.ok(userService.updateSegReserva(normalizedCpf, segReserva));
     }
 
     @PutMapping("/{cpf}/situacao")
     public ResponseEntity<User> updateSituacao(@PathVariable String cpf, @RequestBody boolean situacao) {
-        return ResponseEntity.ok(userService.updateSituacao(cpf, situacao));
+        String normalizedCpf = cpf.replaceAll("[^\\d]", "");
+        return ResponseEntity.ok(userService.updateSituacao(normalizedCpf, situacao));
     }
 
     @DeleteMapping("/{cpf}")
     public ResponseEntity<Void> deleteUser(@PathVariable String cpf) {
-        userService.delete(cpf);
+        String normalizedCpf = cpf.replaceAll("[^\\d]", "");
+        userService.delete(normalizedCpf);
         return ResponseEntity.noContent().build();
     }
 }

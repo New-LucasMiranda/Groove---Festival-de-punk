@@ -20,172 +20,166 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("QueueService Tests")
 class QueueServiceTests {
 
-     @Autowired
-     private QueueService queueService;
+    @Autowired
+    private QueueService queueService;
 
-     @Autowired
-     private UserRepo userRepo;
+    @Autowired
+    private UserRepo userRepo;
 
-     private User testUser;
+    private User testUser;
 
-     @BeforeEach
-     void setUp() {
-          userRepo.deleteAll();
-          testUser = new User("12345678901", "John Doe", 25, "john@example.com", "1", null, null, true);
-     }
+    @BeforeEach
+    void setUp() {
+        userRepo.deleteAll();
+        testUser = new User("12345678901", "John Doe", 25, "john@example.com", "1", null, null, true);
+    }
 
-     @Test
-     @DisplayName("Should enqueue user successfully")
-     void testEnqueueUser() {
-          UserQueue queue = queueService.getDay1Queue();
-          int initialSize = queue.getCount();
+    @Test
+    @DisplayName("Should enqueue user successfully")
+    void testEnqueueUser() {
+        UserQueue queue = queueService.getDay1Queue();
+        int initialSize = queue.getCount();
 
-          queueService.enqueueUser(testUser);
+        queueService.enqueueUser(testUser);
 
-          assertEquals(initialSize + 1, queue.getCount());
-     }
+        assertEquals(initialSize + 1, queue.getCount());
+    }
 
-     @Test
-     @DisplayName("Should not enqueue null user")
-     void testEnqueueNullUser() {
-          UserQueue queue = queueService.getDay1Queue();
-          int initialSize = queue.getCount();
+    @Test
+    @DisplayName("Should not enqueue null user")
+    void testEnqueueNullUser() {
+        UserQueue queue = queueService.getDay1Queue();
+        int initialSize = queue.getCount();
 
-          queueService.enqueueUser(null);
+        queueService.enqueueUser(null);
 
-          assertEquals(initialSize, queue.getCount());
-     }
+        assertEquals(initialSize, queue.getCount());
+    }
 
-     @Test
-     @DisplayName("Should not enqueue VIP user")
-     void testEnqueueVIPUser() {
-          testUser.setDia("VIP");
-          UserQueue queue = queueService.getQueueByDia("VIP");
-          int initialSize = queue.getCount();
+    @Test
+    @DisplayName("Should not enqueue VIP user")
+    void testEnqueueVIPUser() {
+        testUser.setDia("VIP");
+        UserQueue queue = queueService.getQueueByDia("VIP"); // falls to bothQueue
+        int initialSize = queue.getCount();
 
-          queueService.enqueueUser(testUser);
+        queueService.enqueueUser(testUser);
 
-          assertEquals(initialSize, queue.getCount());
-     }
+        assertEquals(initialSize, queue.getCount());
+    }
 
-     @Test
-     @DisplayName("Should not enqueue inactive user")
-     void testEnqueueInactiveUser() {
-          testUser.setSituacao(false);
-          UserQueue queue = queueService.getDay1Queue();
-          int initialSize = queue.getCount();
+    @Test
+    @DisplayName("Should not enqueue inactive user")
+    void testEnqueueInactiveUser() {
+        testUser.setSituacao(false);
+        UserQueue queue = queueService.getDay1Queue();
+        int initialSize = queue.getCount();
 
-          queueService.enqueueUser(testUser);
+        queueService.enqueueUser(testUser);
 
-          assertEquals(initialSize, queue.getCount());
-     }
+        assertEquals(initialSize, queue.getCount());
+    }
 
-     @Test
-     @DisplayName("Should dequeue user successfully")
-     void testDequeueUser() {
-          userRepo.save(testUser);
-          queueService.enqueueUser(testUser);
+    @Test
+    @DisplayName("Should dequeue user successfully")
+    void testDequeueUser() {
+        userRepo.save(testUser);
+        queueService.enqueueUser(testUser);
 
-          User dequeued = queueService.dequeueUser("1");
+        User dequeued = queueService.dequeueUser("1");
 
-          assertNotNull(dequeued);
-          assertEquals(testUser.getCpf(), dequeued.getCpf());
-     }
+        assertNotNull(dequeued);
+        assertEquals(testUser.getCpf(), dequeued.getCpf());
+    }
 
-     @Test
-     @DisplayName("Should return null when dequeueing from empty queue")
-     void testDequeueFromEmptyQueue() {
-          User dequeued = queueService.dequeueUser("2");
+    @Test
+    @DisplayName("Should return null when dequeueing from empty queue")
+    void testDequeueFromEmptyQueue() {
+        User dequeued = queueService.dequeueUser("2");
+        assertNull(dequeued);
+    }
 
-          assertNull(dequeued);
-     }
+    @Test
+    @DisplayName("Should get user position by CPF")
+    void testGetUserPositionByCpf() {
+        userRepo.save(testUser);
+        queueService.enqueueUser(testUser);
 
-     @Test
-     @DisplayName("Should get user position by CPF")
-     void testGetUserPositionByCpf() {
-          userRepo.save(testUser);
-          queueService.enqueueUser(testUser);
+        int position = queueService.getUserPositionByCpf("12345678901", "1");
 
-          int position = queueService.getUserPositionByCpf("12345678901", "1");
+        assertTrue(position > 0);
+    }
 
-          assertTrue(position > 0);
-     }
+    @Test
+    @DisplayName("Should get occupation rate")
+    void testGetOccupationRate() {
+        userRepo.save(testUser);
+        queueService.enqueueUser(testUser);
 
-     @Test
-     @DisplayName("Should get occupation rate")
-     void testGetOccupationRate() {
-          userRepo.save(testUser);
-          queueService.enqueueUser(testUser);
+        double rate = queueService.getOccupationRate("1");
 
-          double rate = queueService.getOccupationRate("1");
+        assertTrue(rate > 0);
+        assertTrue(rate <= 100);
+    }
 
-          assertTrue(rate > 0);
-          assertTrue(rate <= 100);
-     }
+    @Test
+    @DisplayName("Should remove user by CPF")
+    void testRemoveUserByCpf() {
+        userRepo.save(testUser);
+        queueService.enqueueUser(testUser);
 
-     @Test
-     @DisplayName("Should remove user by CPF")
-     void testRemoveUserByCpf() {
-          userRepo.save(testUser);
-          queueService.enqueueUser(testUser);
+        boolean removed = queueService.removeUserByCpf("12345678901", "1");
 
-          boolean removed = queueService.removeUserByCpf("12345678901", "1");
+        assertTrue(removed);
+    }
 
-          assertTrue(removed);
-     }
+    @Test
+    @DisplayName("Should get queue by day 1")
+    void testGetQueueByDay1() {
+        UserQueue queue = queueService.getQueueByDia("1");
+        assertNotNull(queue);
+        assertSame(queue, queueService.getDay1Queue());
+    }
 
-     @Test
-     @DisplayName("Should get queue by day 1")
-     void testGetQueueByDay1() {
-          UserQueue queue = queueService.getQueueByDia("1");
+    @Test
+    @DisplayName("Should get queue by day 2")
+    void testGetQueueByDay2() {
+        UserQueue queue = queueService.getQueueByDia("2");
+        assertNotNull(queue);
+        assertSame(queue, queueService.getDay2Queue());
+    }
 
-          assertNotNull(queue);
-          assertSame(queue, queueService.getDay1Queue());
-     }
+    @Test
+    @DisplayName("Should get pass queue for other days")
+    void testGetQueueByPass() {
+        UserQueue queue = queueService.getQueueByDia("Pass");
+        assertNotNull(queue);
+        assertSame(queue, queueService.getBothQueue());
+    }
 
-     @Test
-     @DisplayName("Should get queue by day 2")
-     void testGetQueueByDay2() {
-          UserQueue queue = queueService.getQueueByDia("2");
+    @Test
+    @DisplayName("Should peek at first user in queue")
+    void testPeekUser() {
+        userRepo.save(testUser);
+        queueService.enqueueUser(testUser);
 
-          assertNotNull(queue);
-          assertSame(queue, queueService.getDay2Queue());
-     }
+        User peeked = queueService.peek("1");
 
-     @Test
-     @DisplayName("Should get pass queue for other days")
-     void testGetQueueByPass() {
-          UserQueue queue = queueService.getQueueByDia("Pass");
+        assertNotNull(peeked);
+        assertEquals(testUser.getCpf(), peeked.getCpf());
+    }
 
-          assertNotNull(queue);
-          assertSame(queue, queueService.getBothQueue());
-     }
+    @Test
+    @DisplayName("Should return null when peeking empty queue")
+    void testPeekEmptyQueue() {
+        User peeked = queueService.peek("1");
+        assertNull(peeked);
+    }
 
-     @Test
-     @DisplayName("Should peek at first user in queue")
-     void testPeekUser() {
-          userRepo.save(testUser);
-          queueService.enqueueUser(testUser);
-
-          User peeked = queueService.peek("1");
-
-          assertNotNull(peeked);
-          assertEquals(testUser.getCpf(), peeked.getCpf());
-     }
-
-     @Test
-     @DisplayName("Should return null when peeking empty queue")
-     void testPeekEmptyQueue() {
-          User peeked = queueService.peek("1");
-
-          assertNull(peeked);
-     }
-
-     @Test
-     @DisplayName("Should get all queues")
-     void testGetAllQueues() {
-          var queues = queueService.getAllQueues();
-
-          assertEquals(3, queues.size());
-     }
+    @Test
+    @DisplayName("Should get all queues")
+    void testGetAllQueues() {
+        var queues = queueService.getAllQueues();
+        assertEquals(3, queues.size());
+    }
 }

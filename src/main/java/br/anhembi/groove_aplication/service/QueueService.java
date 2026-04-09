@@ -22,7 +22,7 @@ import jakarta.annotation.PreDestroy;
 public class QueueService {
 
     private static final Logger logger = LoggerFactory.getLogger(QueueService.class);
-    private static final long QUEUE_TIMEOUT_SECONDS = 2 * 60 * 60;
+    private static final long QUEUE_TIMEOUT_SECONDS = 2 * 60 * 60; // 2 hours
 
     private UserQueue day1Queue;
     private UserQueue day2Queue;
@@ -133,7 +133,6 @@ public class QueueService {
     }
 
     public void startTimerForFirstUserInQueue() {
-
         if (!day1Queue.isEmpty() && !day1TimerActive) {
             User user = day1Queue.peek();
             if (isUserEligible(user)) {
@@ -160,7 +159,6 @@ public class QueueService {
     }
 
     private boolean isUserEligible(User user) {
-        // fix: removida checagem duplicada de getSituacao()
         return user != null &&
                 user.getSituacao() &&
                 user.getPrimReserva() == null &&
@@ -183,12 +181,9 @@ public class QueueService {
     }
 
     private void sendEmailToFirstUser(User user) {
-
-        if (!isUserEligible(user))
-            return;
+        if (!isUserEligible(user)) return;
 
         if (user.getEmail() != null && !user.getEmail().isEmpty()) {
-
             String token = tokenService.generateToken(user.getCpf());
             String link = baseUrl + "/setor-day.html?token=" + token;
 
@@ -202,12 +197,9 @@ public class QueueService {
     }
 
     private void sendEmailToFirstPassUser(User user) {
-
-        if (!isUserEligible(user))
-            return;
+        if (!isUserEligible(user)) return;
 
         if (user.getEmail() != null && !user.getEmail().isEmpty()) {
-
             String token = tokenService.generateToken(user.getCpf());
             String link = baseUrl + "/setor-pass.html?token=" + token;
 
@@ -247,7 +239,6 @@ public class QueueService {
 
     public void loadUsersToQueues() {
         List<User> users = userRepository.findAll();
-
         for (User user : users) {
             if (isUserEligible(user)) {
                 enqueueUser(user);

@@ -7,16 +7,14 @@ public class TicketStack {
     private Ticket[] stack;
     private int top;
 
-    // Construtor que recebe qtdDisp como parâmetro
     public TicketStack(int qtdDisp) {
         if (qtdDisp <= 0) {
             throw new IllegalArgumentException("QtdDisp must be greater than 0.");
         }
 
         stack = new Ticket[qtdDisp];
-        top = qtdDisp; // top aponta para o próximo slot livre (começa cheio)
+        top = qtdDisp; // stack starts full; top points past last ticket
 
-        // Inicializa a pilha com tickets
         for (int i = 0; i < qtdDisp; i++) {
             stack[i] = new Ticket(i + 1);
         }
@@ -43,20 +41,14 @@ public class TicketStack {
             return null;
         }
         Ticket ticket = stack[--top];
-        stack[top] = null; // Libera referência
+        stack[top] = null; // release reference
         return ticket;
     }
 
     public double getOccupationRate() {
-        // Verifica se a pilha não está vazia
         if (stack.length == 0) {
-            return 0.0; // Retorna 0 se não houver ingressos
+            return 0.0;
         }
-
-        // Calcular a taxa de ocupação baseada no número de ingressos removidos e o
-        // total de ingressos disponíveis
         return Math.round((double) top / stack.length * 100 * 100.0) / 100.0;
     }
-
 }
-

@@ -10,118 +10,119 @@ import jakarta.validation.constraints.*;
 @Table(name = "users")
 public class User {
 
-     @Id
-     @NotBlank(message = "CPF is required")
-     @Pattern(regexp = "\\d{11}", message = "CPF must have 11 digits")
-     private String cpf;
+    @Id
+    @NotBlank(message = "CPF is required")
+    @Pattern(regexp = "\\d{11}|\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "CPF must have 11 digits or format XXX.XXX.XXX-XX")
+    private String cpf;
 
-     @NotBlank(message = "Name is required")
-     @Column(nullable = false)
-     private String nome;
+    @NotBlank(message = "Name is required")
+    @Column(nullable = false)
+    private String nome;
 
-     @Min(value = 0, message = "Age must be positive")
-     @Max(value = 150, message = "Age must be less than 150")
-     @Column(nullable = false)
-     private int idade;
+    @Min(value = 0, message = "Age must be positive")
+    @Max(value = 150, message = "Age must be less than 150")
+    @Column(nullable = false)
+    private int idade;
 
-     @NotBlank(message = "Email is required")
-     @Email(message = "Email should be valid")
-     @Column(nullable = false)
-     private String email;
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
+    @Column(nullable = false)
+    private String email;
 
-     @NotBlank(message = "Day/Ticket type is required")
-     @Column(nullable = false)
-     private String dia;
+    @NotBlank(message = "Day/Ticket type is required")
+    @Column(nullable = false)
+    private String dia;
 
-     @Column(name = "prim_reserva")
-     private String primReserva;
+    @Column(name = "prim_reserva")
+    private String primReserva;
 
-     @Column(name = "seg_reserva")
-     private String segReserva;
+    @Column(name = "seg_reserva")
+    private String segReserva;
 
-     @Column(nullable = false)
-     private boolean situacao;
+    @Column(nullable = false)
+    private boolean situacao;
 
-     public User() {
-     }
+    public User() {
+    }
 
-     public User(String cpf, String nome, int idade, String email, String dia, String primReserva, String segReserva,
-               boolean situacao) {
-          this.cpf = cpf;
-          this.nome = nome;
-          this.idade = idade;
-          this.email = email;
-          this.dia = dia;
-          this.primReserva = primReserva;
-          this.segReserva = segReserva;
-          this.situacao = situacao;
-     }
+    public User(String cpf, String nome, int idade, String email, String dia, String primReserva, String segReserva,
+            boolean situacao) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.idade = idade;
+        this.email = email;
+        this.dia = dia;
+        this.primReserva = primReserva;
+        this.segReserva = segReserva;
+        this.situacao = situacao;
+    }
 
-     public String getPrimReserva() {
-          return primReserva;
-     }
+    public String getCpf() {
+        return cpf;
+    }
 
-     public void setPrimReserva(String primReserva) {
-          this.primReserva = primReserva;
-     }
+    // Normalizes CPF on input: strips dots and dashes so DB always stores 11 digits
+    public void setCpf(String cpf) {
+        this.cpf = cpf == null ? null : cpf.replaceAll("[^\\d]", "");
+    }
 
-     public String getSegReserva() {
-          return segReserva;
-     }
+    public String getNome() {
+        return nome;
+    }
 
-     public void setSegReserva(String segReserva) {
-          this.segReserva = segReserva;
-     }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-     public String getCpf() {
-          return cpf;
-     }
+    public int getIdade() {
+        return idade;
+    }
 
-     public void setCpf(String cpf) {
-          this.cpf = cpf;
-     }
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
 
-     public String getNome() {
-          return nome;
-     }
+    public String getEmail() {
+        return email;
+    }
 
-     public void setNome(String nome) {
-          this.nome = nome;
-     }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-     public int getIdade() {
-          return idade;
-     }
+    public String getDia() {
+        return dia;
+    }
 
-     public void setIdade(int idade) {
-          this.idade = idade;
-     }
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
 
-     public String getEmail() {
-          return email;
-     }
+    public String getPrimReserva() {
+        return primReserva;
+    }
 
-     public void setEmail(String email) {
-          this.email = email;
-     }
+    public void setPrimReserva(String primReserva) {
+        this.primReserva = primReserva;
+    }
 
-     public String getDia() {
-          return dia;
-     }
+    public String getSegReserva() {
+        return segReserva;
+    }
 
-     public void setDia(String dia) {
-          this.dia = dia;
-     }
+    public void setSegReserva(String segReserva) {
+        this.segReserva = segReserva;
+    }
 
-     public boolean getSituacao() {
-          return situacao;
-     }
+    public boolean getSituacao() {
+        return situacao;
+    }
 
-     public void setSituacao(boolean situacao) {
-          this.situacao = situacao;
-     }
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
+    }
 
-     public User copy() {
-          return new User(cpf, nome, idade, email, dia, primReserva, segReserva, situacao);
-     }
+    public User copy() {
+        return new User(cpf, nome, idade, email, dia, primReserva, segReserva, situacao);
+    }
 }
