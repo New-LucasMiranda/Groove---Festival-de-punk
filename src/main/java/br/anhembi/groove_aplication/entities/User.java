@@ -1,5 +1,6 @@
 package br.anhembi.groove_aplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -39,6 +40,7 @@ public class User {
     @Column(name = "seg_reserva")
     private String segReserva;
 
+    @JsonProperty("situação")
     @Column(nullable = false)
     private boolean situacao;
 

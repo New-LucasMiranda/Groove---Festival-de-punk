@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
             dia,
             primReserva,
             segReserva,
-            situacao: situacao
+            "situação": situacao
         };
 
         try {
