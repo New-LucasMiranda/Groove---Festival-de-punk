@@ -40,9 +40,8 @@ public class User {
     @Column(name = "seg_reserva")
     private String segReserva;
 
-    @JsonProperty("situacao")
-    @JsonAlias("situação")
-    @Column(name = "situacão", nullable = false, columnDefinition = "boolean default false")
+    @JsonProperty("situação")
+    @Column(name = "situacao", nullable = false, columnDefinition = "boolean default false")
     private boolean situacao = false;
 
     public User() {
