@@ -41,8 +41,8 @@ public class User {
     private String segReserva;
 
     @JsonProperty("situação")
-    @Column(nullable = false)
-    private boolean situacao;
+    @Column(name = "situacao", nullable = false, columnDefinition = "boolean default false")
+    private boolean situacao = false;
 
     public User() {
     }
