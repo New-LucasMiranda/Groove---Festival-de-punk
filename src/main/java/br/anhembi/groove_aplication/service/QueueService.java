@@ -93,6 +93,8 @@ public class QueueService {
     }
 
     public void enqueueUser(User user) {
+        logger.info("Attempting to enqueue user: cpf={}, dia={}, situacao={}", user.getCpf(), user.getDia(),
+                user.getSituacao());
         if (user == null) {
             logger.warn("Attempt to enqueue null user");
             return;
@@ -111,9 +113,18 @@ public class QueueService {
         }
 
         switch (user.getDia()) {
-            case "1" -> day1Queue.enqueue(user);
-            case "2" -> day2Queue.enqueue(user);
-            default -> bothQueue.enqueue(user);
+            case "1" -> {
+                day1Queue.enqueue(user);
+                logger.info("User {} added to day1 queue", user.getCpf());
+            }
+            case "2" -> {
+                day2Queue.enqueue(user);
+                logger.info("User {} added to day2 queue", user.getCpf());
+            }
+            default -> {
+                bothQueue.enqueue(user);
+                logger.info("User {} added to both queue", user.getCpf());
+            }
         }
 
         logger.info("User {} added to queue: {}", user.getCpf(), user.getDia());
@@ -181,7 +192,8 @@ public class QueueService {
     }
 
     private void sendEmailToFirstUser(User user) {
-        if (!isUserEligible(user)) return;
+        if (!isUserEligible(user))
+            return;
 
         if (user.getEmail() != null && !user.getEmail().isEmpty()) {
             String token = tokenService.generateToken(user.getCpf());
@@ -197,7 +209,8 @@ public class QueueService {
     }
 
     private void sendEmailToFirstPassUser(User user) {
-        if (!isUserEligible(user)) return;
+        if (!isUserEligible(user))
+            return;
 
         if (user.getEmail() != null && !user.getEmail().isEmpty()) {
             String token = tokenService.generateToken(user.getCpf());
@@ -238,11 +251,18 @@ public class QueueService {
     }
 
     public void loadUsersToQueues() {
+        logger.info("Loading users to queues on startup");
         List<User> users = userRepository.findAll();
+        logger.info("Found {} users in database", users.size());
+        int enqueuedCount = 0;
         for (User user : users) {
             if (isUserEligible(user)) {
                 enqueueUser(user);
+                enqueuedCount++;
+            } else {
+                logger.debug("User {} not eligible for queue", user.getCpf());
             }
         }
+        logger.info("Loaded {} users into queues", enqueuedCount);
     }
 }

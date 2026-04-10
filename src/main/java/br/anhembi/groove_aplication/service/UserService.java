@@ -36,13 +36,18 @@ public class UserService {
     }
 
     public User insert(User obj) {
+        logger.info("Starting user insertion: cpf={}, nome={}, dia={}, situacao={}", obj.getCpf(), obj.getNome(),
+                obj.getDia(), obj.getSituacao());
         validateUser(obj);
+        logger.debug("User validation passed for: {}", obj.getCpf());
 
         Optional<User> existingUser = repo.findById(obj.getCpf());
 
         if (existingUser.isPresent()) {
+            logger.info("Existing user found: {}", obj.getCpf());
             User user = existingUser.get();
             if (!user.getSituacao() && user.getPrimReserva() == null && user.getSegReserva() == null) {
+                logger.info("Updating existing inactive user: {}", obj.getCpf());
                 user.setNome(obj.getNome());
                 user.setDia(obj.getDia());
                 user.setEmail(obj.getEmail());
@@ -50,6 +55,7 @@ public class UserService {
 
                 checkQueueCapacity(user.getDia());
                 User updatedUser = repo.save(user);
+                logger.info("User updated in DB: {}", updatedUser);
 
                 if (updatedUser.getSituacao()) {
                     queueService.enqueueUser(updatedUser);
@@ -57,16 +63,21 @@ public class UserService {
                 }
                 return updatedUser;
             } else {
+                logger.warn("User already has pending reservations or is active: {}", obj.getCpf());
                 throw new InvalidUserException("User already has pending reservations or is inactive");
             }
         }
 
+        logger.info("Creating new user: {}", obj.getCpf());
         checkQueueCapacity(obj.getDia());
         User savedUser = repo.save(obj);
+        logger.info("User saved to DB: {}", savedUser);
 
         if (savedUser.getSituacao()) {
             queueService.enqueueUser(savedUser);
             logger.info("New user created and added to queue: {}", savedUser.getCpf());
+        } else {
+            logger.info("New user created but not added to queue (situacao=false): {}", savedUser.getCpf());
         }
         return savedUser;
     }
@@ -142,14 +153,30 @@ public class UserService {
     }
 
     private void checkQueueCapacity(String dia) {
+        logger.debug("Checking queue capacity for dia: {}", dia);
         boolean queueFull = switch (dia) {
-            case "1" -> queueService.getQueueByDia("1").isFull();
-            case "2" -> queueService.getQueueByDia("2").isFull();
-            default -> queueService.getQueueByDia("both").isFull();
+            case "1" -> {
+                boolean full = queueService.getQueueByDia("1").isFull();
+                logger.debug("Day1 queue full: {}", full);
+                yield full;
+            }
+            case "2" -> {
+                boolean full = queueService.getQueueByDia("2").isFull();
+                logger.debug("Day2 queue full: {}", full);
+                yield full;
+            }
+            default -> {
+                boolean full = queueService.getQueueByDia("both").isFull();
+                logger.debug("Both queue full: {}", full);
+                yield full;
+            }
         };
 
         if (queueFull) {
+            logger.warn("Queue is full for dia: {}", dia);
             throw new QueueFullException(dia);
+        } else {
+            logger.debug("Queue has capacity for dia: {}", dia);
         }
     }
 }
