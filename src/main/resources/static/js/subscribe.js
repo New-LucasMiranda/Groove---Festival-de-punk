@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const name = document.getElementById('name').value + " " + document.getElementById('last-name').value;
         const age = document.getElementById('age').value;
 
-        let dia, situacao = true, primReserva = null, segReserva = null;
+        let dia, primReserva = null, segReserva = null;
 
         switch (selectedTicketType) {
             case "Groove Day":
@@ -156,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case "Groove Vip":
                 dia = "VIP";
-                situacao = false;
                 primReserva = "VIP";
                 segReserva = "VIP";
                 break;
@@ -170,13 +169,12 @@ document.addEventListener('DOMContentLoaded', function () {
             dia,
             primReserva,
             segReserva,
-            situacao: situacao
+            situacao: true
         };
 
         try {
             // 🔹 Criar usuário
-            const endpoint = (dia === "VIP") ? "/users/VIP" : "/users";
-            await API.post(endpoint, data);
+            await API.post("/users", data);
 
             // 🔹 Atualizar setor VIP
             if (dia === "VIP") {
