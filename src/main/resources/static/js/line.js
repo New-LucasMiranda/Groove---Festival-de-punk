@@ -130,7 +130,7 @@ async function getUserData(cpf) {
 
         const position = await API.get(`/queues/${data.dia}/position/${cpf}`);
 
-        if (data.situação === false) {
+        if (data.situacao === false) {
             showAlert("Você não está na fila no momento.", "warning");
         } else {
             positionOutput.value = position + "°";
